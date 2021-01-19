@@ -85,6 +85,7 @@ const CanvasScreen = ({navigation}) => {
       location: {x: 0, y: 0},
       size: 60,
       color: '#e3e3e3',
+      rotationAngle: 0,
     };
     const mappingArray = mapping.concat(polygon);
     setMapping(mappingArray);
@@ -98,6 +99,7 @@ const CanvasScreen = ({navigation}) => {
       setActiveShape(index);
       shapesOptionActionSheet.current?.setModalVisible(true);
     }
+    console.log(mapping, 'checkeeed');
   };
 
   const scaleIn = () => {
@@ -109,6 +111,20 @@ const CanvasScreen = ({navigation}) => {
   const scaleOut = () => {
     const mappingData = [...mapping];
     mappingData[activeShape].size = mappingData[activeShape].size - 5;
+    setMapping(mappingData);
+  };
+
+  const rotateRight = () => {
+    const mappingData = [...mapping];
+    mappingData[activeShape].rotationAngle =
+      mappingData[activeShape].rotationAngle + 5;
+    setMapping(mappingData);
+  };
+
+  const rotateLeft = () => {
+    const mappingData = [...mapping];
+    mappingData[activeShape].rotationAngle =
+      mappingData[activeShape].rotationAngle - 5;
     setMapping(mappingData);
   };
 
@@ -151,8 +167,9 @@ const CanvasScreen = ({navigation}) => {
                         borderRadius: 1,
                         borderColor: 'black',
                         borderWidth: 1,
+                        transform: [{rotate: `${item.rotationAngle}deg`}],
                       }
-                    : null
+                    : {transform: [{rotate: `${item.rotationAngle}deg`}]}
                 }
               />
             </TouchableOpacity>
@@ -241,9 +258,9 @@ const CanvasScreen = ({navigation}) => {
               alignItems: 'center',
               backgroundColor: 'tomato',
             }}
-            onPress={scaleOut}>
+            onPress={rotateLeft}>
             <Icon
-              name={'minus'}
+              name={'rotate-left'}
               iconType={'MaterialCommunityIcons'}
               color="black"
               size={35}
@@ -259,9 +276,27 @@ const CanvasScreen = ({navigation}) => {
               alignItems: 'center',
               backgroundColor: 'tomato',
             }}
-            onPress={scaleOut}>
+            onPress={rotateRight}>
             <Icon
-              name={'minus'}
+              name={'rotate-right'}
+              iconType={'MaterialCommunityIcons'}
+              color="black"
+              size={35}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              margin: 1,
+              width: wp(10),
+              height: wp(10),
+              borderRadius: wp(10) / 2,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'tomato',
+            }}
+            onPress={rotateRight}>
+            <Icon
+              name={'format-color-fill'}
               iconType={'MaterialCommunityIcons'}
               color="black"
               size={35}

@@ -9,6 +9,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  Touchable,
 } from 'react-native';
 
 // import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -20,6 +21,7 @@ import {
 import Icon from '../component/Icon';
 import ToolBar from '../component/ToolBar';
 import ActionSheet from 'react-native-actions-sheet';
+import {TextInput} from 'react-native-gesture-handler';
 
 const CanvasScreen = ({navigation}) => {
   const shapesActionSheet = useRef();
@@ -64,12 +66,11 @@ const CanvasScreen = ({navigation}) => {
     'hexagon',
     'octagon',
   ];
+  const color = ['#0275d8', '#5cb85c', '#5bc0de', '#f0ad4e', '#d9534f'];
   const [mapping, setMapping] = useState([]);
   const [activeShape, setActiveShape] = useState(null);
-
-  // useEffect(() => {
-  //   console.log(mapping, 'test');
-  // }, [mapping]);
+  const [toggleColorPicker, setToggleColorPicker] = useState(false);
+  const [shapeColor, setShapeColor] = useState(null);
 
   const openActionSheet = (item) => {
     switch (item.iconLabel) {
@@ -94,9 +95,11 @@ const CanvasScreen = ({navigation}) => {
   const selectShape = (index) => {
     if (index === activeShape) {
       setActiveShape(null);
+      setToggleColorPicker(false);
       shapesOptionActionSheet.current?.setModalVisible(false);
     } else {
       setActiveShape(index);
+      setToggleColorPicker(false);
       shapesOptionActionSheet.current?.setModalVisible(true);
     }
     console.log(mapping, 'checkeeed');
@@ -206,103 +209,177 @@ const CanvasScreen = ({navigation}) => {
         </SafeAreaView>
       </ActionSheet>
       <ActionSheet ref={shapesOptionActionSheet}>
-        <SafeAreaView
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            paddingVertical: hp(5),
-          }}>
-          <TouchableOpacity
+        {toggleColorPicker ? (
+          <SafeAreaView>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                marginVertical: hp(3),
+              }}>
+              {color.map((item, index) => {
+                return (
+                  <TouchableOpacity
+                    style={{
+                      width: wp(10),
+                      height: wp(10),
+                      borderRadius: wp(10) / 2,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      backgroundColor: item,
+                    }}
+                    onPress={() => setShapeColor(item)}
+                  />
+                );
+              })}
+            </View>
+            <View>
+              <Text style={{fontSize: wp(4), textAlign: 'center'}}>or</Text>
+              <Text style={{fontSize: wp(5), textAlign: 'center'}}>
+                Custom Color
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignSelf: 'center',
+                  marginVertical: wp(2),
+                  alignItems: 'center',
+                }}>
+                <Text style={{fontSize: wp(4), marginVertical: 'auto'}}>
+                  Hex Code:-{' '}
+                </Text>
+                <TextInput
+                  style={{
+                    fontSize: wp(4),
+                    backgroundColor: '#e3e3e3',
+                    width: wp(25),
+                    borderRadius: 20,
+                    height: wp(7),
+                    paddingVertical: 0,
+                    paddingHorizontal: wp(4),
+                  }}
+                />
+              </View>
+              <TouchableOpacity
+                style={{
+                  padding: wp(2),
+                  backgroundColor: 'green',
+                  width: wp(25),
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: wp(20),
+                  marginVertical: wp(6),
+                  alignSelf: 'center',
+                }}>
+                <Text
+                  style={{
+                    fontSize: wp(4),
+                    color: 'white',
+                  }}>
+                  Submit
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </SafeAreaView>
+        ) : (
+          <SafeAreaView
             style={{
-              margin: 1,
-              width: wp(10),
-              height: wp(10),
-              borderRadius: wp(10) / 2,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: 'tomato',
-            }}
-            onPress={scaleIn}>
-            <Icon
-              name={'plus'}
-              iconType={'MaterialCommunityIcons'}
-              color="black"
-              size={35}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              margin: 1,
-              width: wp(10),
-              height: wp(10),
-              borderRadius: wp(10) / 2,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: 'tomato',
-            }}
-            onPress={scaleOut}>
-            <Icon
-              name={'minus'}
-              iconType={'MaterialCommunityIcons'}
-              color="black"
-              size={35}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              margin: 1,
-              width: wp(10),
-              height: wp(10),
-              borderRadius: wp(10) / 2,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: 'tomato',
-            }}
-            onPress={rotateLeft}>
-            <Icon
-              name={'rotate-left'}
-              iconType={'MaterialCommunityIcons'}
-              color="black"
-              size={35}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              margin: 1,
-              width: wp(10),
-              height: wp(10),
-              borderRadius: wp(10) / 2,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: 'tomato',
-            }}
-            onPress={rotateRight}>
-            <Icon
-              name={'rotate-right'}
-              iconType={'MaterialCommunityIcons'}
-              color="black"
-              size={35}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              margin: 1,
-              width: wp(10),
-              height: wp(10),
-              borderRadius: wp(10) / 2,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: 'tomato',
-            }}
-            onPress={rotateRight}>
-            <Icon
-              name={'format-color-fill'}
-              iconType={'MaterialCommunityIcons'}
-              color="black"
-              size={35}
-            />
-          </TouchableOpacity>
-        </SafeAreaView>
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              paddingVertical: hp(5),
+            }}>
+            <TouchableOpacity
+              style={{
+                margin: 1,
+                width: wp(10),
+                height: wp(10),
+                borderRadius: wp(10) / 2,
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'tomato',
+              }}
+              onPress={scaleIn}>
+              <Icon
+                name={'plus'}
+                iconType={'MaterialCommunityIcons'}
+                color="black"
+                size={35}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                margin: 1,
+                width: wp(10),
+                height: wp(10),
+                borderRadius: wp(10) / 2,
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'tomato',
+              }}
+              onPress={scaleOut}>
+              <Icon
+                name={'minus'}
+                iconType={'MaterialCommunityIcons'}
+                color="black"
+                size={35}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                margin: 1,
+                width: wp(10),
+                height: wp(10),
+                borderRadius: wp(10) / 2,
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'tomato',
+              }}
+              onPress={rotateLeft}>
+              <Icon
+                name={'rotate-left'}
+                iconType={'MaterialCommunityIcons'}
+                color="black"
+                size={35}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                margin: 1,
+                width: wp(10),
+                height: wp(10),
+                borderRadius: wp(10) / 2,
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'tomato',
+              }}
+              onPress={rotateRight}>
+              <Icon
+                name={'rotate-right'}
+                iconType={'MaterialCommunityIcons'}
+                color="black"
+                size={35}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                margin: 1,
+                width: wp(10),
+                height: wp(10),
+                borderRadius: wp(10) / 2,
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'tomato',
+              }}
+              onPress={() => setToggleColorPicker(true)}>
+              <Icon
+                name={'format-color-fill'}
+                iconType={'MaterialCommunityIcons'}
+                color="black"
+                size={35}
+              />
+            </TouchableOpacity>
+          </SafeAreaView>
+        )}
       </ActionSheet>
     </>
   );

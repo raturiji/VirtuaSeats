@@ -5654,6 +5654,11 @@ react-is@^16.12.0, react-is@^16.13.0, react-is@^16.7.0, react-is@^16.8.1, react-
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-native-actions-sheet@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/react-native-actions-sheet/-/react-native-actions-sheet-0.4.2.tgz#9717f2a72c065db8dadf69577264b8ad32ba91e9"
+  integrity sha512-yeOOggOSAcj7/+U+TwFBhPLi820a1mKAPZcFyOSgJrkQOTpSKw9vnMpqO+ciBH0ngptQq/30CpAH+P+Di3EJ7g==
+
 react-native-draggable@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/react-native-draggable/-/react-native-draggable-3.3.0.tgz#6f07c3ad4cff018bf0455fc48dbfe5f0af9b72cd"
@@ -5698,6 +5703,11 @@ react-native-screens@^2.16.1:
   version "2.16.1"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.16.1.tgz#b105a127378d90018a46daf0c2f6518fca60c06f"
   integrity sha512-WZ7m0sBDVaHbBnlHxwQnUlI6KNfQKHq+Unfw+VBuAlnSXvT+aw6Bb/K2bUlHzBgvrPjwY3Spc7ZERFuTwRLLwg==
+
+react-native-shape@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-shape/-/react-native-shape-1.1.2.tgz#723d592a878d457b5b5c4ce326a11ce04c538a9d"
+  integrity sha512-qDYG6LZveeY6hJbWFx2PamCJvMJqe81Hfvf+CPXSB9DR5+/pk5XelwRCO9NtBgotAkZYi1GY2Gd4jvf8yeWZnw==
 
 react-native-vector-icons@^7.1.0:
   version "7.1.0"

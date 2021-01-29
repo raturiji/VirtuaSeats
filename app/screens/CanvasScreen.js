@@ -71,6 +71,7 @@ const CanvasScreen = ({navigation}) => {
   const [activeShape, setActiveShape] = useState(null);
   const [toggleColorPicker, setToggleColorPicker] = useState(false);
   const [shapeColor, setShapeColor] = useState(null);
+  const [colorpick, setColorPick] = useState(null);
 
   const openActionSheet = (item) => {
     switch (item.iconLabel) {
@@ -128,6 +129,12 @@ const CanvasScreen = ({navigation}) => {
     const mappingData = [...mapping];
     mappingData[activeShape].rotationAngle =
       mappingData[activeShape].rotationAngle - 5;
+    setMapping(mappingData);
+  };
+
+  const fillColor = () => {
+    const mappingData = [...mapping];
+    mappingData[activeShape].color = colorpick;
     setMapping(mappingData);
   };
 
@@ -227,8 +234,16 @@ const CanvasScreen = ({navigation}) => {
                       justifyContent: 'center',
                       alignItems: 'center',
                       backgroundColor: item,
+                      borderWidth:
+                        color.indexOf(colorpick) > -1 && colorpick === item
+                          ? 0
+                          : 4,
+                      borderColor:
+                        color.indexOf(colorpick) > -1 && colorpick === item
+                          ? 'none'
+                          : '#e3e3e3',
                     }}
-                    onPress={() => setShapeColor(item)}
+                    onPress={() => setColorPick(item)}
                   />
                 );
               })}
@@ -258,6 +273,8 @@ const CanvasScreen = ({navigation}) => {
                     paddingVertical: 0,
                     paddingHorizontal: wp(4),
                   }}
+                  value={colorpick}
+                  onChangeText={(text) => setColorPick(text)}
                 />
               </View>
               <TouchableOpacity
@@ -270,7 +287,8 @@ const CanvasScreen = ({navigation}) => {
                   borderRadius: wp(20),
                   marginVertical: wp(6),
                   alignSelf: 'center',
-                }}>
+                }}
+                onPress={fillColor}>
                 <Text
                   style={{
                     fontSize: wp(4),

@@ -9,7 +9,6 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
-  Touchable,
 } from 'react-native';
 
 // import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -70,7 +69,6 @@ const CanvasScreen = ({navigation}) => {
   const [mapping, setMapping] = useState([]);
   const [activeShape, setActiveShape] = useState(null);
   const [toggleColorPicker, setToggleColorPicker] = useState(false);
-  const [shapeColor, setShapeColor] = useState(null);
   const [colorpick, setColorPick] = useState(null);
 
   const openActionSheet = (item) => {
@@ -147,7 +145,10 @@ const CanvasScreen = ({navigation}) => {
           height: hp(100),
           flexDirection: 'row',
         }}>
-        <ToolBar action={(item) => openActionSheet(item)} />
+        <ToolBar
+          action={(item) => openActionSheet(item)}
+          shapeStatus={mapping[activeShape]}
+        />
         <View
           style={{
             width: '80%',

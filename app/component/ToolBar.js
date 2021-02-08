@@ -18,8 +18,8 @@ import {
 } from 'react-native-responsive-screen';
 import Icon from '../component/Icon';
 
-const ToolBar = ({navigation, action}) => {
-  console.log(action, 'checked');
+const ToolBar = ({navigation, action, shapeStatus}) => {
+  console.log(shapeStatus, 'checked');
   const option = [
     {
       iconName: 'shape-polygon-plus',
@@ -74,6 +74,29 @@ const ToolBar = ({navigation, action}) => {
           <Text style={{color: 'white'}}>{item.iconLabel}</Text>
         </TouchableOpacity>
       ))}
+      <View
+        style={{
+          width: '100%',
+          backgroundColor: '#1DA237',
+          alignItems: 'center',
+          marginVertical: wp(2),
+        }}>
+        <Text style={{fontSize: wp(6), color: 'white'}}>Width</Text>
+        <Text style={{fontSize: wp(5), color: 'white', fontWeight: 'bold'}}>
+          {shapeStatus && shapeStatus.size}
+        </Text>
+      </View>
+      <View
+        style={{
+          width: '100%',
+          backgroundColor: '#1DA237',
+          alignItems: 'center',
+        }}>
+        <Text style={{fontSize: wp(6), color: 'white'}}>Height</Text>
+        <Text style={{fontSize: wp(5), color: 'white', fontWeight: 'bold'}}>
+          {shapeStatus && shapeStatus.size}
+        </Text>
+      </View>
     </View>
   );
 };
